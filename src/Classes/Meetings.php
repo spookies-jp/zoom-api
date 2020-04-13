@@ -31,14 +31,25 @@ class Meetings extends Request
     }
 
     /**
-     * Meeting
+     * GetMeeting
      *
      * @param string $meetingId
      * @return array|mixed
      */
-    public function meeting(string $meetingId)
+    public function getMeeting(string $meetingId)
     {
         return $this->get("meetings/{$meetingId}");
+    }
+
+    /**
+     * DeleteMeeting
+     *
+     * @param string $meetingId
+     * @return array|mixed
+     */
+    public function deleteMeeting(string $meetingId)
+    {
+        return $this->delete("meetings/{$meetingId}");
     }
 
     /**
