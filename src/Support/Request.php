@@ -108,6 +108,29 @@ class Request
     }
 
     /**
+     * Put
+     *
+     * @param $method
+     * @param $fields
+     * @return array|mixed
+     */
+    protected function put($method, $fields)
+    {
+        $body = \json_encode($fields, JSON_PRETTY_PRINT);
+
+        try {
+            $response = $this->client->request('PUT', $this->apiPoint . $method,
+                ['body' => $body, 'headers' => $this->headers()]);
+
+            return $this->result($response);
+
+        } catch (ClientException $e) {
+
+            return (array)json_decode($e->getResponse()->getBody()->getContents());
+        }
+    }
+
+    /**
      * Patch
      *
      * @param $method
