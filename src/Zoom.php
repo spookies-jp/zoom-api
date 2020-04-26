@@ -59,5 +59,24 @@ class Zoom
         throw new Exception('Wrong method');
     }
 
+    /**
+     * @param int $meeting_number
+     * @param int $role
+     * @return string
+     */
+    public function generateSignature(int $meeting_number, int $role = 0)
+    {
+        $api_key = config('zoom.api_key');
+        $api_secret =config('zoom.api_secret');
+        $time = time() * 1000 - 30000; //time in milliseconds (or close enough)
 
+        $data = base64_encode( $api_key . $meeting_number . $time . $role);
+
+        $hash = hash_hmac('sha256', $data, $api_secret, true);
+
+        $_sig = $api_key . "." . $meeting_number . "." . $time . "." . $role . "." . base64_encode($hash);
+
+        //return signature, url safe base64 encoded
+        return rtrim(strtr(base64_encode($_sig), '+/', '-_'), '=');
+    }
 }
