@@ -41,6 +41,18 @@ class Users extends Request
     }
 
     /**
+     * UpdatePassword
+     *
+     * @param string $userId
+     * @param array $data
+     * @return array|mixed
+     */
+    public function updatePassword(string $userId, array $data)
+    {
+        return $this->put("users/{$userId}/password", $data);
+    }
+    
+    /**
      * Retrieve
      *
      * @param string $userId
