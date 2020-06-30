@@ -42,6 +42,31 @@ class Meetings extends Request
     }
 
     /**
+     * Update
+     *
+     * @param string $meetingId
+     * @param array $data
+     * @return array|mixed
+     */
+    public function update(string $meetingId, array $data  = null)
+    {
+        return $this->patch("meetings/{$meetingId}", $data);
+    }
+
+    /**
+     * UpdateStatus
+     *
+     * @param string $webinarId
+     * @param string $action
+     * @return array|mixed
+     */
+    public function updateStatus(string $meetingId, string $action)
+    {
+        return $this->put("meetings/{$meetingId}/status", ['action' => $action]);
+    }
+
+
+    /**
      * DeleteMeeting
      *
      * @param string $meetingId
