@@ -13,7 +13,7 @@ class Meetings extends Request
      * @param string $userId
      * @return array|mixed
      */
-    public function list(string $userId)
+    public function list(string $userId): array
     {
         return $this->get("users/{$userId}/meetings");
     }
@@ -25,7 +25,7 @@ class Meetings extends Request
      * @param array $data
      * @return array|mixed
      */
-    public function create(string $userId, array $data  = null)
+    public function create(string $userId, array $data  = null): array
     {
         return $this->post("users/{$userId}/meetings", $data);
     }
@@ -36,7 +36,7 @@ class Meetings extends Request
      * @param string $meetingId
      * @return array|mixed
      */
-    public function getMeeting(string $meetingId)
+    public function retrieve(string $meetingId): array
     {
         return $this->get("meetings/{$meetingId}");
     }
@@ -48,7 +48,7 @@ class Meetings extends Request
      * @param array $data
      * @return array|mixed
      */
-    public function update(string $meetingId, array $data  = null)
+    public function update(string $meetingId, array $data  = null): array
     {
         return $this->patch("meetings/{$meetingId}", $data);
     }
@@ -60,7 +60,7 @@ class Meetings extends Request
      * @param string $action
      * @return array|mixed
      */
-    public function updateStatus(string $meetingId, string $action)
+    public function updateStatus(string $meetingId, string $action): array
     {
         return $this->put("meetings/{$meetingId}/status", ['action' => $action]);
     }
@@ -72,7 +72,7 @@ class Meetings extends Request
      * @param string $meetingId
      * @return array|mixed
      */
-    public function deleteMeeting(string $meetingId)
+    public function remove(string $meetingId): array
     {
         return $this->delete("meetings/{$meetingId}");
     }
@@ -83,7 +83,7 @@ class Meetings extends Request
      * @param string $meetingId
      * @return array|mixed
      */
-    public function records(string $meetingId)
+    public function records(string $meetingId): array
     {
         return $this->get("meetings/{$meetingId}/recordings");
     }
