@@ -14,7 +14,7 @@ class Webinars extends Request
      * @param string $userId
      * @return array|mixed
      */
-    public function list(string $userId)
+    public function list(string $userId): array
     {
         return $this->get("users/{$userId}/webinars");
     }
@@ -26,7 +26,7 @@ class Webinars extends Request
      * @param array $data
      * @return array|mixed
      */
-    public function create(string $userId, array $data  = null)
+    public function create(string $userId, array $data  = null): array
     {
         return $this->post("users/{$userId}/webinars", $data);
     }
@@ -38,7 +38,7 @@ class Webinars extends Request
      * @param array $data
      * @return array|mixed
      */
-    public function update(string $webinarId, array $data  = null)
+    public function update(string $webinarId, array $data  = null): array
     {
         return $this->patch("webinars/{$webinarId}", $data);
     }
@@ -50,7 +50,7 @@ class Webinars extends Request
      * @param string $action
      * @return array|mixed
      */
-    public function updateStatus(string $webinarId, string $action)
+    public function updateStatus(string $webinarId, string $action): array
     {
         return $this->put("webinars/{$webinarId}/status", ['action' => $action]);
     }
@@ -61,7 +61,7 @@ class Webinars extends Request
      * @param string $webinarId
      * @return array|mixed
      */
-    public function deleteWebinar(string $webinarId)
+    public function remove(string $webinarId): array
     {
         return $this->delete("webinars/{$webinarId}");
     }
@@ -72,7 +72,7 @@ class Webinars extends Request
      * @param string $webinarId
      * @return array|mixed
      */
-    public function getWebinar(string $webinarId)
+    public function retrieve(string $webinarId): array
     {
         return $this->get("webinars/{$webinarId}");
     }
@@ -83,7 +83,7 @@ class Webinars extends Request
      * @param string $webinarId
      * @return array|mixed
      */
-    public function records(string $webinarId)
+    public function records(string $webinarId): array
     {
         return $this->get("webinars/{$webinarId}/recordings");
     }
