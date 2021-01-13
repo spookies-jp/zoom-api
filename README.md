@@ -1,3 +1,4 @@
+
 # Laravel package for Zoom video conferencing
 
 [![Latest Version on Packagist](https://img.shields.io/packagist/v/MinaWilliam/zoom-api.svg?style=flat-square)](https://packagist.org/packages/MinaWilliam/zoom-api)
@@ -13,7 +14,7 @@ You can install the package via composer:
 composer require minawilliam/zoom-api
 ```
 
-The service provider should automatically register for For Laravel > 5.4.
+The service provider should automatically register for Laravel > 5.4.
 
 For Laravel < 5.5, open config/app.php and, within the providers array, append:
 
@@ -33,28 +34,29 @@ This will create a zoom/config.php within your config directory, where you add v
 
 ## Usage
 
-To get a list of meetings
+To get a list of user meetings or webinars
 
 ``` php
 	$zoom = new \MinaWilliam\Zoom\Zoom();
-	$meetings = $zoom->users->find('test@domain.com')->meetings()->all();
+	$meetings = $zoom->meetings->list('zoomUserId');
+    $webinars = $zoom->webinars->list('zoomUserId');
 ```
 
 ## Find all
 
-The find all function returns a Laravel Collection so you can use all the Laravel Collection magic
+To get a list of all users
 
 ``` php
 	$zoom = new \MinaWilliam\Zoom\Zoom();
-	$users = $zoom->users->all();
+	$users = $zoom->users->list();
 ```
 
 ## Creating Items
 
-We can create and update records using the save function, below is the full save script for a creation.
+We can a user by passing an array of user details 
 
 ``` php
-	$user = $zoom->user->create([
+	$user = $zoom->users->create([
         'name' => 'Test Name',
         'first_name' => 'First Name',
         'last_name' => 'Last Name',
@@ -62,6 +64,31 @@ We can create and update records using the save function, below is the full save
         'password' => 'secret',
         'type' => 1
     ]);
+    
+    $webinar = $zoom->webinars->create('zoomUserId', [
+        'topic' => 'string',
+        'agenda' => 'string',
+        'type' => 'integer', // 5 - Webinar, 6 - Recurring webinar with no fixed time, 9 - Recurring webinar with a fixed time.
+        'start_time' => $start_at->toDateTimeLocalString(), // Webinar start time in GMT/UTC.
+        'timezone' => $start_at->tzName, // webinar timezone
+        'duration' => 'integer' // duration in minutes,
+        'password' => 'string' // zoom webinar password,
+    ]);
+```
+## Update Items
+
+We can a user by passing an array of user details
+
+``` php
+    
+    $webinar = $zoom->webinars->update('webinarId', [
+        'topic' => 'string',
+        'agenda' => 'string',
+    ]);
+    
+    //end webinar/meeting by updating its status.
+    $zoom->webinars->updateStatus('webinarId', 'end')
+    $zoom->meetings->updateStatus('meetingId', 'end')
 ```
 
 ### RESOURCES
@@ -69,12 +96,14 @@ We can create and update records using the save function, below is the full save
 We cover the main resources
 
 ```
-Meetings
-Panelists
-Registrants
-Users
-Webinars
+users 
+   methods (list, retrieve, create, update, updatePassword, remove, assistantsList, addAssistant, deleteAssistants, deleteAssistant, deletesSchedulers, deletesScheduler)
+meetings 
+    methods (list, retrieve, create, update, updateStatus, remove, records)
+mebinars
+    methods (list, retrieve, create, update, updateStatus, remove, records)
 ```
+
 
 We aim to add additional resources/sub-resources over time
 
@@ -88,12 +117,12 @@ Please see [CONTRIBUTING](CONTRIBUTING.md) for details.
 
 ### Security
 
-If you discover any security related issues, please email colin@macsi.co.uk instead of using the issue tracker.
+If you discover any security related issues, please email mwfayez@gmail.com instead of using the issue tracker.
 
 ## Credits
 
-- [Colin Hall](https://github.com/MinaWilliam)
-- [All Contributors](../../contributors)
+- [Mina William](https://github.com/MinaWilliam)
+- forked from: https://github.com/Fessnik/zoom
 
 ## License
 
