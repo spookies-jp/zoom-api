@@ -8,18 +8,7 @@ class Users extends Request
 {
 
     /**
-     * Create
-     *
-     * @param array $data
-     * @return array|mixed
-     */
-    public function create(array $data)
-    {
-        return $this->post('users', $data);
-    }
-
-    /**
-     * Get Users
+     * List Users
      *
      * @return array
      */
@@ -29,13 +18,24 @@ class Users extends Request
     }
 
     /**
+     * Create
+     *
+     * @param array $data
+     * @return array|mixed
+     */
+    public function create(array $data): array
+    {
+        return $this->post('users', $data);
+    }
+
+    /**
      * Update
      *
      * @param string $userId
      * @param array $data
      * @return array|mixed
      */
-    public function update(string $userId, array $data)
+    public function update(string $userId, array $data): array
     {
         return $this->patch("users/{$userId}", $data);
     }
@@ -47,7 +47,7 @@ class Users extends Request
      * @param array $data
      * @return array|mixed
      */
-    public function updatePassword(string $userId, array $data)
+    public function updatePassword(string $userId, array $data): array
     {
         return $this->put("users/{$userId}/password", $data);
     }
@@ -59,7 +59,7 @@ class Users extends Request
      * @param array $optional
      * @return array|mixed
      */
-    public function retrieve(string $userId, $optional = [])
+    public function retrieve(string $userId, $optional = []): array
     {
         return $this->get("users/{$userId}", $optional);
     }
@@ -70,7 +70,7 @@ class Users extends Request
      * @param string $userId
      * @return array|mixed
      */
-    public function remove(string $userId)
+    public function remove(string $userId): array
     {
         return $this->delete("users/{$userId}");
     }
@@ -81,7 +81,7 @@ class Users extends Request
      * @param string $userId
      * @return array|mixed
      */
-    public function assistantsList(string $userId)
+    public function assistantsList(string $userId): array
     {
         return $this->get("users/{$userId}/assistants");
     }
@@ -93,7 +93,7 @@ class Users extends Request
      * @param array $data
      * @return array|mixed
      */
-    public function addAssistant(string $userId, array $data)
+    public function addAssistant(string $userId, array $data): array
     {
         return $this->post("users{$userId}/assistants", $data);
     }
@@ -104,7 +104,7 @@ class Users extends Request
      * @param string $userId
      * @return array|mixed
      */
-    public function deleteAssistants(string $userId)
+    public function deleteAssistants(string $userId): array
     {
         return $this->delete("users/{$userId}/assistants");
     }
@@ -116,7 +116,7 @@ class Users extends Request
      * @param string $assistantId
      * @return array|mixed
      */
-    public function deleteAssistant(string $userId, string $assistantId)
+    public function deleteAssistant(string $userId, string $assistantId): array
     {
         return $this->delete("users/{$userId}/assistants/{$assistantId}");
     }
@@ -127,7 +127,7 @@ class Users extends Request
      * @param string $userId
      * @return array|mixed
      */
-    public function schedulersList(string $userId)
+    public function schedulersList(string $userId): array
     {
         return $this->get("users/{$userId}/schedulers");
     }
@@ -138,7 +138,7 @@ class Users extends Request
      * @param string $userId
      * @return array|mixed
      */
-    public function deletesSchedulers(string $userId)
+    public function deletesSchedulers(string $userId): array
     {
         return $this->delete("users/{$userId}/schedulers");
     }
@@ -150,7 +150,7 @@ class Users extends Request
      * @param string $schedulerId
      * @return array|mixed
      */
-    public function deletesScheduler(string $userId, string $schedulerId)
+    public function deletesScheduler(string $userId, string $schedulerId): array
     {
         return $this->delete("users/{$userId}/schedulers/{$schedulerId}");
     }
