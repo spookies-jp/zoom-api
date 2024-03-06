@@ -63,13 +63,25 @@ class Request
 
     /**
      * Refresh Token
+     * 
+     * Use Server-to-Server OAuth, but if account_id is not set in the config, use OAuth
+     * @see https://developers.zoom.us/docs/internal-apps/s2s-oauth/
      */
     public function refreshAuth()
     {
-        $fields = [
-            'refresh_token' => config('zoom.refresh_token'),
-            'grant_type'  => 'refresh_token',
-        ];
+        $accountId = config('zoom.account_id');
+
+        if($accountId) {
+            $fields = [
+                'account_id' => $accountId,
+                'grant_type'  => 'account_credentials',
+            ];
+        } else {
+            $fields = [
+                'refresh_token' => config('zoom.refresh_token'),
+                'grant_type'  => 'refresh_token',
+            ];
+        }
 
         try {
             $response = $this->client->request('POST', $this->authPoint,
