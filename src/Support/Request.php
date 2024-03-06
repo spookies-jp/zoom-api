@@ -63,12 +63,17 @@ class Request
 
     /**
      * Refresh Token
+     * 
+     * Use Server-to-Server OAuth
+     * @see https://developers.zoom.us/docs/internal-apps/s2s-oauth/
      */
     public function refreshAuth()
     {
+        $accountId = config('zoom.account_id');
+
         $fields = [
-            'refresh_token' => config('zoom.refresh_token'),
-            'grant_type'  => 'refresh_token',
+            'account_id' => $accountId,
+            'grant_type'  => 'account_credentials',
         ];
 
         try {
